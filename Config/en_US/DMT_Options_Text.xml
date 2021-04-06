@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <EnglishText>
+        <Row Tag="LOC_DMT_OPTIONS_HOTKEY_CATEGORY">
+            <Text>Detailed Map Tacks</Text>
+        </Row>
+        <Row Tag="LOC_DMT_OPTIONS_HOTKEY_ADD_MAP_TACK">
+            <Text>Add Map Tack</Text>
+        </Row>
+        <Row Tag="LOC_DMT_OPTIONS_HOTKEY_DELETE_MAP_TACK">
+            <Text>Delete Map Tack</Text>
+        </Row>
+        <Row Tag="LOC_DMT_OPTIONS_HOTKEY_TOGGLE_MAP_TACK_VISIBILITY">
+            <Text>Toggle Map Tacks Visibility</Text>
+        </Row>
+    </EnglishText>
+</GameData>

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Mod id="4ecfcc62-5471-4435-b295-590df213e8d8" version="1">
+  <Properties>
+    <Name>Detailed Map Tacks</Name>
+    <Authors>wltk, DeepLogic</Authors>
+    <Teaser>Show yields and adjacency bonuses for your map tacks.</Teaser>
+    <Description>Are you tired of calculating adjacency bonuses for your districts?
+This mod can help you plan the placement of your districts by calculating the potential yields and adjacency bonuses on your behalf.
+Simply add map tacks on your map and the yields from them will show up automatically.
+Enjoy planning!</Description>
+    <AffectsSavedGames>0</AffectsSavedGames>
+    <CompatibleVersions>1.2,2.0</CompatibleVersions>
+  </Properties>
+
+  <FrontEndActions>
+    <UpdateDatabase id="DMT_Settings">
+      <File>Config/DMT_Config.xml</File>
+    </UpdateDatabase>
+    <UpdateText id="DMT_Settings_Text">
+      <File Priority="1">Config/en_US/DMT_Options_Text.xml</File>
+      <File>Config/DMT_Options_Translations_Text.xml</File>
+    </UpdateText>
+  </FrontEndActions>
+
+  <InGameActions>
+    <AddUserInterfaces id="DMT_YieldCalculator">
+      <Properties>
+        <Context>InGame</Context>
+      </Properties>
+      <File>UI/DMT_YieldCalculator.xml</File>
+    </AddUserInterfaces>
+    <AddGameplayScripts id="MapPinSubjectManager">
+      <Properties><LoadOrder>12345</LoadOrder></Properties> <!-- Higher than Map Tacks mod's 12000. -->
+      <File>Gameplay/MapPinSubjectManager.lua</File>
+    </AddGameplayScripts>
+    <ReplaceUIScript id="MapPinManager">
+      <Properties>
+        <LoadOrder>12345</LoadOrder> <!-- Higher than Map Tacks mod's 12000. -->
+        <LuaContext>MapPinManager</LuaContext>
+        <LuaReplace>UI/MapPinManager_DMT.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+    <ReplaceUIScript id="MapPinPopup">
+      <Properties>
+        <LoadOrder>12345</LoadOrder> <!-- Higher than Map Tacks mod's 12000. -->
+        <LuaContext>MapPinPopup</LuaContext>
+        <LuaReplace>UI/MapPinPopup_DMT.lua</LuaReplace>
+      </Properties>
+    </ReplaceUIScript>
+    <UpdateText id="DMT_Text">
+      <File Priority="1">Config/en_US/DMT_Options_Text.xml</File>
+      <File>Config/DMT_Options_Translations_Text.xml</File>
+      <File Priority="1">Text/en_US/DMT_Text.xml</File>
+      <File>Text/DMT_Translations_Text.xml</File>
+    </UpdateText>
+    <!-- Importing our files so that other mods can include it and apply additional logic. -->
+    <ImportFiles id="DMT_Files">
+      <Properties><LoadOrder>12345</LoadOrder></Properties> <!-- Higher than Map Tacks mod's 12000. -->
+      <File>UI/DMT_ModifierCalculator.lua</File>
+      <File>UI/DMT_ModifierRequirementChecker.lua</File>
+      <File>UI/DMT_YieldCalculator.lua</File>
+      <File>UI/DMT_YieldCalculator.xml</File>
+      <File>UI/MapPinManager_DMT.lua</File>
+      <File>UI/MapPinManager.xml</File>
+      <File>UI/MapPinPopup_DMT.lua</File>
+    </ImportFiles>
+  </InGameActions>
+
+  <Files>
+    <!-- Texts -->
+    <File>Config/en_US/DMT_Options_Text.xml</File>
+    <File>Config/DMT_Options_Translations_Text.xml</File>
+    <File>Text/en_US/DMT_Text.xml</File>
+    <File>Text/DMT_Translations_Text.xml</File>
+    <!-- Game files -->
+    <File>Config/DMT_Config.xml</File>
+    <File>Gameplay/MapPinSubjectManager.lua</File>
+    <File>UI/DMT_ModifierCalculator.lua</File>
+    <File>UI/DMT_ModifierRequirementChecker.lua</File>
+    <File>UI/DMT_YieldCalculator.lua</File>
+    <File>UI/DMT_YieldCalculator.xml</File>
+    <File>UI/MapPinManager_DMT.lua</File>
+    <File>UI/MapPinManager.xml</File>
+    <File>UI/MapPinPopup_DMT.lua</File>
+  </Files>
+</Mod>
