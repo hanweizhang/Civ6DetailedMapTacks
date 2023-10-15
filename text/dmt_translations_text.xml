@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <LocalizedText>
+        <!-- de_DE -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="de_DE">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} durch Modifikatoren</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="de_DE">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} durch {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="de_DE">
+            <Text>Kann nicht auf Geländefeldern mit {1_Name} werden.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="de_DE">
+            <Text>Muss angrenzend an Eure [ICON_CAPITAL] Hauptstadt gebaut werden.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="de_DE">
+            <Text>Es kann nur einer auf dem Schwemmland jedes Flusses gebaut werden (von dem Spieler, der ihn zuerst fertigstellt) und der Fluss muss an mindestens zwei Seiten des Damm-Felds verlaufen.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="de_DE">
+            <Text>Die Brücke muss über das Geländefeld zwischen zwei direkt gegenüberliegenden Land-Geländefeldern führen. Links und rechts der Brücke muss jeweils mindestens ein Wasser-Geländefeld liegen.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="de_DE">
+            <Text>Möchten Sie Kartennägel automatisch löschen?</Text>
+        </Replace>
+
+        <!-- es_ES -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="es_ES">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} a modificadores</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="es_ES">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} a {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="es_ES">
+            <Text>No se puede colocar en {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="es_ES">
+            <Text>Debe construirse adyacente a la Capital [ICON_CAPITAL].</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="es_ES">
+            <Text>Solo se puede construir una a lo largo de todo el Terreno de aluvión de cada río (la del jugador que complete antes su construcción) y el río debe cruzar al menos dos lados del hexágono de la Presa.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="es_ES">
+            <Text>El puente debe atravesar el hexágono que hay entre dos casillas terrestres situadas una frente a la otra. Como mínimo, debe haber una casilla de agua a la izquierda y a la derecha del puente.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="es_ES">
+            <Text>¿Quieres borrar automáticamente las tachuelas del mapa?</Text>
+        </Replace>
+
+        <!-- fr_FR -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="fr_FR">
+            <Text>Modificateurs : {1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="fr_FR">
+            <Text>{3_Name} : {1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="fr_FR">
+            <Text>Ne peut pas être construit sur {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="fr_FR">
+            <Text>Doit être construite adjacente à votre [ICON_CAPITAL] capitale.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="fr_FR">
+            <Text>Un seul bâtiment peut être construit sur les cases de plaine inondable de chaque fleuve (celui que le joueur termine en premier), et le cours d'eau doit traverser au moins deux côtés de la case du barrage.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="fr_FR">
+            <Text>Le pont doit relier directement deux cases terrestres diamétralement opposées l'une à l'autre. Au moins une case d'eau doit être présente de chaque côté du pont.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="fr_FR">
+            <Text>Voulez-vous supprimer automatiquement les punaises de la carte ?</Text>
+        </Replace>
+
+        <!-- it_IT -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="it_IT">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} dai modificatori</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="it_IT">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} da {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="it_IT">
+            <Text>Non può essere posizionato in {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="it_IT">
+            <Text>Dev'essere costruita adiacente alla tua [ICON_CAPITAL] capitale.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="it_IT">
+            <Text>Ne può essere costruita solo una lungo il corso di ogni fiume (da parte del giocatore che la completa per prima); inoltre il fiume deve attraversare almeno due lati dell'esagono che la contiene.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="it_IT">
+            <Text>Il ponte deve collegare direttamente due caselle terrestri poste una di fronte all'altra. Ai due lati del ponte dev'essere presente almeno una casella acquatica.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="it_IT">
+            <Text>Vuoi cancellare automaticamente i chiodini delle mappe?</Text>
+        </Replace>
+
+        <!-- ja_JP -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="ja_JP">
+            <Text>修正により{1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="ja_JP">
+            <Text>{3_Name}により{1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="ja_JP">
+            <Text>{1_Name}には建設不可。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="ja_JP">
+            <Text>[ICON_CAPITAL] 首都に隣接した土地にのみ建設可能。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="ja_JP">
+            <Text>1つの川につき1つだけ、流域の氾濫原に建設できる (誰が築いたかに関係なく、最初に完成したものが優先される)。川はダムのタイルから2つ以上の方向に流れていなければならない。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ja_JP">
+            <Text>橋は対面している2つのタイルを、間の水域タイルを通ってまっすぐに結ぶ。橋の両側には、水域タイルが1つ以上存在していなければならない。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ja_JP">
+            <Text>マップタックを自動削除しますか？</Text>
+        </Replace>
+
+        <!-- ko_KR -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="ko_KR">
+            <Text>보정치에서 {1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="ko_KR">
+            <Text>{3_Name}에서 {1_Value : number +#.#;-#.#} {2_YieldType}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="ko_KR">
+            <Text>{1_Name}에 배치할 수 없으며.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="ko_KR">
+            <Text>플레이어 [ICON_CAPITAL] 수도 옆에 지어야 합니다.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ON_CORRECT_FEATURES_REASON" Language="ko_KR">
+            <Text>올바른 장소에 배치해야 합니다.</Text> <!-- Thanks @OZmaster -->
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="ko_KR">
+            <Text>각 강의 범람원을 따라 1개만 건설할 수 있으며(가장 먼저 완성하는 플레이어), 강이 댐 타일의 측면 2개 이상을 가로질러야 합니다.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ko_KR">
+            <Text>다리가 서로 마주 보고 있는 두 육지 타일 사이의 타일을 직선으로 통과해야 합니다. 다리 왼쪽과 오른쪽 모두에 1개 이상의 물 타일이 있어야 합니다.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ko_KR">
+            <Text>지도 압정을 자동으로 삭제하시겠습니까?</Text>
+        </Replace>
+
+        <!-- pl_PL -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="pl_PL">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} z modyfikatorów</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="pl_PL">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} z {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="pl_PL">
+            <Text>Nie można umieścić na polach {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="pl_PL">
+            <Text>Można zbudować wyłącznie w sąsiedztwie [ICON_CAPITAL] stolicy.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="pl_PL">
+            <Text>Na równinie zalewowej każdej rzeki wybudować można tylko jedną dzielnicę tego typu (pozostaje dzielnica tego gracza, który ukończy ją jako pierwszy), a rzeka musi przepływać przy co najmniej dwóch bokach pola zapory.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="pl_PL">
+            <Text>Most musi biec w prostej linii nad heksem znajdującym się między dwoma polami lądowymi. Po lewej i prawej stronie mostu musi znajdować się co najmniej jedno pole z wodą.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="pl_PL">
+            <Text>Czy chcesz automatycznie usuwać macki mapy?</Text>
+        </Replace>
+
+        <!-- pt_BR -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="pt_BR">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} de modificadores</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="pt_BR">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} de {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="pt_BR">
+            <Text>Não pode ser colocado em {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="pt_BR">
+            <Text>Deve ser construída adjacente à sua [ICON_CAPITAL] capital.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="pt_BR">
+            <Text>Apenas um pode ser construído ao longo das planícies aluviais de cada rio (seja qual for o jogador que completar uma primeiro) e o rio deve passar por pelo menos dois lados do painel da Represa.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="pt_BR">
+            <Text>A ponte deve cruzar o hexágono entre dois painéis de terra em lados opostos um do outro. Pelo menos um painel de água deve estar presente tanto no lado direito quanto esquerdo da ponte.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="pt_BR">
+            <Text>Você quer apagar automaticamente as tachas de mapa?</Text>
+        </Replace>
+
+        <!-- ru_RU -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="ru_RU">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} от модификаторов</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="ru_RU">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} от {3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="ru_RU">
+            <Text>Нельзя построить в {1_Name}.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="ru_RU">
+            <Text>Можно построить только рядом со [ICON_CAPITAL] столицей.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="ru_RU">
+            <Text>На каждой реке можно построить только один такой район (если его уже построил один игрок, то другие уже не могут). Река должна пересекать не менее двух сторон клетки с дамбой.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ru_RU">
+            <Text>Мост должен проходить через клетку, разделяющую две клетки суши. Справа и слева от моста должно быть хотя бы по одной водной клетке.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ru_RU">
+            <Text>Вы хотите автоматически удалять галочки на карте?</Text>
+        </Replace>
+
+        <!-- zh_Hans_CN -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="zh_Hans_CN">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType}来自修正值</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="zh_Hans_CN">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType}来自{3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="zh_Hans_CN">
+            <Text>无法建在{1_Name}上。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="zh_Hans_CN">
+            <Text>必须建造在 [ICON_CAPITAL] 首都旁。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ON_CORRECT_FEATURES_REASON" Language="zh_Hans_CN">
+            <Text>必须放置在正确的地貌上。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="zh_Hans_CN">
+            <Text>每条江河的泛滥平原中仅能建造1个（有文明建成便视为已建造），且江河必须至少穿过堤坝格位的两个面。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="zh_Hans_CN">
+            <Text>大桥必须修建在相隔一个单元格并正对的两个陆地单元格中。大桥左右两侧必须各有至少1个水域单元格。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="zh_Hans_CN">
+            <Text>您希望自动删除地图钉吗？</Text>
+        </Replace>
+
+        <!-- zh_Hant_HK -->
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="zh_Hant_HK">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType}來自修正值</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME" Language="zh_Hant_HK">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType}來自{3_Name}</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_CANNOT_PLACE_ON_REASON" Language="zh_Hant_HK">
+            <Text>無法建在{1_Name}上。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="zh_Hant_HK">
+            <Text>必須建在 [ICON_CAPITAL] 首都旁。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ON_CORRECT_FEATURES_REASON" Language="zh_Hant_HK">
+            <Text>必須放置在正確的地貌上</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="zh_Hant_HK">
+            <Text>每條河流僅能在其沿岸氾濫平原上建造一座（無論是哪個玩家率先完工），且該河流必須穿越水壩單元格的至少兩側。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="zh_Hant_HK">
+            <Text>橋樑必須穿越兩個陸地單元格間的單元格，並直接通往另一端。橋樑的左側和右側至少必須有一個水域單元格。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="zh_Hant_HK">
+            <Text>您希望自動刪除地圖釘嗎？</Text>
+        </Replace>
+    </LocalizedText>
+</GameData>

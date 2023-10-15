@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GameData>
+    <EnglishText>
+        <Row Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} from Modifiers</Text>
+        </Row>
+        <Row Tag="LOC_DMT_YIELD_FROM_MODIFIER_NAME">
+            <Text>{1_Value : number +#.#;-#.#} {2_YieldType} from {3_Name}</Text>
+        </Row>
+
+        <Row Tag="LOC_DMT_CANNOT_PLACE_ON_REASON">
+            <Text>Cannot be placed on {1_Name}.</Text>
+        </Row>
+        <Row Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON">
+            <Text>Must be built adjacent to your [ICON_CAPITAL] Capital.</Text>
+        </Row>
+        <Row Tag="LOC_DMT_MUST_PLACE_ON_CORRECT_FEATURES_REASON">
+            <Text>Must be placed on correct features.</Text>
+        </Row>
+        <Row Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON">
+            <Text>Only one may be built along each river's floodplain (whichever player completes one first) and the river must traverse at least two sides of the Dam hex.</Text>
+        </Row>
+        <Row Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON">
+            <Text>The bridge must run straight across the hex between two land tiles directly opposite one another. At least one water tile must be present on both the left and right sides of the bridge.</Text>
+        </Row>
+        <Row Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT">
+            <Text>Do you want to auto delete map tacks?</Text>
+        </Row>
+    </EnglishText>
+</GameData>
