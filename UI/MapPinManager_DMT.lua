@@ -2,10 +2,8 @@
 -- Import base file
 -- =================================================================================
 local files = {
-    "MapPinManager.lua",
-    "mappinmanager.lua", -- For linux.
+    "mappinmanager.lua",
 }
-
 for _, file in ipairs(files) do
     include(file)
     if Initialize then
@@ -13,10 +11,14 @@ for _, file in ipairs(files) do
         break
     end
 end
+include("PopupDialog");
+
+local AUTO_DELETE_CONFIG_KEY = "DMT_AUTO_DELETE"; -- nil => NOT_SET, 0 => NO, 1 => YES.
 
 local MapPinSubjectManager = ExposedMembers.DMT.MapPinSubjectManager;
 
 local m_IsShiftDown = false;
+local m_RememberChoice = true;
 
 local m_AddMapTackId:number = Input.GetActionId("AddMapTack");
 local m_DeleteMapTackId:number = Input.GetActionId("DeleteMapTack");
@@ -136,16 +138,56 @@ function DeleteMapPin()
     if not m_MapPinFlags:IsHidden() then
         -- Only delete if the map pins are not hidden.
         local plotX, plotY = UI.GetCursorPlotCoord();
-        local playerCfg = PlayerConfigurations[Game.GetLocalPlayer()];
-        local mapPin = playerCfg:GetMapPin(plotX, plotY);
-        if mapPin then
-            -- Update map pin yields.
-            LuaEvents.DMT_MapPinRemoved(mapPin);
-            -- Delete the pin.
-            playerCfg:DeleteMapPin(mapPin:GetID());
-            Network.BroadcastPlayerInfo();
-            UI.PlaySound("Map_Pin_Remove");
-        end
+        DeleteMapPinAtPlot(Game.GetLocalPlayer(), plotX, plotY);
+    end
+end
+
+function DeleteMapPinAtPlot(playerID, plotX, plotY)
+    local playerCfg = PlayerConfigurations[playerID];
+    local mapPin = playerCfg:GetMapPin(plotX, plotY);
+    if mapPin then
+        -- Update map pin yields.
+        LuaEvents.DMT_MapPinRemoved(mapPin);
+        -- Delete the pin.
+        playerCfg:DeleteMapPin(mapPin:GetID());
+        Network.BroadcastPlayerInfo();
+        UI.PlaySound("Map_Pin_Remove");
+    end
+end
+
+function OnDeleteMapPinRequest(playerID, plotX, plotY)
+    local autoDeleteConfig = GameConfiguration.GetValue(AUTO_DELETE_CONFIG_KEY);
+    if autoDeleteConfig == 0 then
+        -- Don't auto delete.
+    elseif autoDeleteConfig == 1 then
+        -- Auto delete.
+        DeleteMapPinAtPlot(playerID, plotX, plotY);
+    else
+        -- Not set, show popup.
+        local popupDialog = PopupDialog:new("DMT_AutoDelete_PopupDialog");
+        popupDialog:AddTitle("");
+        popupDialog:AddText(Locale.Lookup("LOC_DMT_AUTO_DELETE_MAP_TACK_HINT"));
+        popupDialog:AddCheckBox(Locale.Lookup("LOC_REMEMBER_MY_CHOICE"), m_RememberChoice, OnAutoDeleteRememberChoice);
+        popupDialog:AddButton(Locale.Lookup("LOC_YES"), function() OnAutoDeleteChooseYes(playerID, plotX, plotY); end);
+        popupDialog:AddButton(Locale.Lookup("LOC_NO"), OnAutoDeleteChooseNo);
+        popupDialog:Open();
+    end
+end
+
+function OnAutoDeleteRememberChoice(checked)
+    m_RememberChoice = checked;
+end
+
+function OnAutoDeleteChooseYes(playerID, plotX, plotY)
+    if m_RememberChoice then
+        GameConfiguration.SetValue(AUTO_DELETE_CONFIG_KEY, 1);
+    end
+    DeleteMapPinAtPlot(playerID, plotX, plotY);
+end
+
+function OnAutoDeleteChooseNo()
+    if m_RememberChoice then
+        GameConfiguration.SetValue(AUTO_DELETE_CONFIG_KEY, 0);
     end
 end
 
@@ -177,6 +219,7 @@ function DMT_Initialize()
     ContextPtr:SetInputHandler(OnInputHandler, true);
 
     LuaEvents.DMT_RefreshMapPinUI.Add(RefreshMapPinUI);
+    LuaEvents.DMT_DeleteMapPinRequest.Add(OnDeleteMapPinRequest);
     Events.InterfaceModeChanged.Add(OnInterfaceModeChanged);
     Events.InputActionTriggered.Add(OnInputActionTriggered);
 end

@@ -23,5 +23,8 @@
         <Row Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON">
             <Text>The bridge must run straight across the hex between two land tiles directly opposite one another. At least one water tile must be present on both the left and right sides of the bridge.</Text>
         </Row>
+        <Row Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT">
+            <Text>Do you want to auto delete map tacks?</Text>
+        </Row>
     </EnglishText>
 </GameData>

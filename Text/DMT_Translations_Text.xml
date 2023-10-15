@@ -20,6 +20,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="de_DE">
             <Text>Die Brücke muss über das Geländefeld zwischen zwei direkt gegenüberliegenden Land-Geländefeldern führen. Links und rechts der Brücke muss jeweils mindestens ein Wasser-Geländefeld liegen.</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="de_DE">
+            <Text>Möchten Sie Kartennägel automatisch löschen?</Text>
+        </Replace>
 
         <!-- es_ES -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="es_ES">
@@ -39,6 +42,9 @@
         </Replace>
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="es_ES">
             <Text>El puente debe atravesar el hexágono que hay entre dos casillas terrestres situadas una frente a la otra. Como mínimo, debe haber una casilla de agua a la izquierda y a la derecha del puente.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="es_ES">
+            <Text>¿Quieres borrar automáticamente las tachuelas del mapa?</Text>
         </Replace>
 
         <!-- fr_FR -->
@@ -60,6 +66,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="fr_FR">
             <Text>Le pont doit relier directement deux cases terrestres diamétralement opposées l'une à l'autre. Au moins une case d'eau doit être présente de chaque côté du pont.</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="fr_FR">
+            <Text>Voulez-vous supprimer automatiquement les punaises de la carte ?</Text>
+        </Replace>
 
         <!-- it_IT -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="it_IT">
@@ -79,6 +88,9 @@
         </Replace>
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="it_IT">
             <Text>Il ponte deve collegare direttamente due caselle terrestri poste una di fronte all'altra. Ai due lati del ponte dev'essere presente almeno una casella acquatica.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="it_IT">
+            <Text>Vuoi cancellare automaticamente i chiodini delle mappe?</Text>
         </Replace>
 
         <!-- ja_JP -->
@@ -100,6 +112,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ja_JP">
             <Text>橋は対面している2つのタイルを、間の水域タイルを通ってまっすぐに結ぶ。橋の両側には、水域タイルが1つ以上存在していなければならない。</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ja_JP">
+            <Text>マップタックを自動削除しますか？</Text>
+        </Replace>
 
         <!-- ko_KR -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="ko_KR">
@@ -114,11 +129,17 @@
         <Replace Tag="LOC_DMT_MUST_PLACE_ADJACENT_TO_CAPITAL_REASON" Language="ko_KR">
             <Text>플레이어 [ICON_CAPITAL] 수도 옆에 지어야 합니다.</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_MUST_PLACE_ON_CORRECT_FEATURES_REASON" Language="ko_KR">
+            <Text>올바른 장소에 배치해야 합니다.</Text> <!-- Thanks @OZmaster -->
+        </Replace>
         <Replace Tag="LOC_DMT_INVALID_DAM_PLACEMENT_REASON" Language="ko_KR">
             <Text>각 강의 범람원을 따라 1개만 건설할 수 있으며(가장 먼저 완성하는 플레이어), 강이 댐 타일의 측면 2개 이상을 가로질러야 합니다.</Text>
         </Replace>
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ko_KR">
             <Text>다리가 서로 마주 보고 있는 두 육지 타일 사이의 타일을 직선으로 통과해야 합니다. 다리 왼쪽과 오른쪽 모두에 1개 이상의 물 타일이 있어야 합니다.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ko_KR">
+            <Text>지도 압정을 자동으로 삭제하시겠습니까?</Text>
         </Replace>
 
         <!-- pl_PL -->
@@ -140,6 +161,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="pl_PL">
             <Text>Most musi biec w prostej linii nad heksem znajdującym się między dwoma polami lądowymi. Po lewej i prawej stronie mostu musi znajdować się co najmniej jedno pole z wodą.</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="pl_PL">
+            <Text>Czy chcesz automatycznie usuwać macki mapy?</Text>
+        </Replace>
 
         <!-- pt_BR -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="pt_BR">
@@ -160,6 +184,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="pt_BR">
             <Text>A ponte deve cruzar o hexágono entre dois painéis de terra em lados opostos um do outro. Pelo menos um painel de água deve estar presente tanto no lado direito quanto esquerdo da ponte.</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="pt_BR">
+            <Text>Você quer apagar automaticamente as tachas de mapa?</Text>
+        </Replace>
 
         <!-- ru_RU -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="ru_RU">
@@ -179,6 +206,9 @@
         </Replace>
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="ru_RU">
             <Text>Мост должен проходить через клетку, разделяющую две клетки суши. Справа и слева от моста должно быть хотя бы по одной водной клетке.</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="ru_RU">
+            <Text>Вы хотите автоматически удалять галочки на карте?</Text>
         </Replace>
 
         <!-- zh_Hans_CN -->
@@ -203,6 +233,9 @@
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="zh_Hans_CN">
             <Text>大桥必须修建在相隔一个单元格并正对的两个陆地单元格中。大桥左右两侧必须各有至少1个水域单元格。</Text>
         </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="zh_Hans_CN">
+            <Text>您希望自动删除地图钉吗？</Text>
+        </Replace>
 
         <!-- zh_Hant_HK -->
         <Replace Tag="LOC_DMT_YIELD_FROM_MODIFIER_DEFAULT" Language="zh_Hant_HK">
@@ -225,6 +258,9 @@
         </Replace>
         <Replace Tag="LOC_DMT_GOLDEN_GATE_BRIDGE_REASON" Language="zh_Hant_HK">
             <Text>橋樑必須穿越兩個陸地單元格間的單元格，並直接通往另一端。橋樑的左側和右側至少必須有一個水域單元格。</Text>
+        </Replace>
+        <Replace Tag="LOC_DMT_AUTO_DELETE_MAP_TACK_HINT" Language="zh_Hant_HK">
+            <Text>您希望自動刪除地圖釘嗎？</Text>
         </Replace>
     </LocalizedText>
 </GameData>

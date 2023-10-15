@@ -50,4 +50,7 @@
             </Container>
         </WorldAnchor>
     </Instance>
+
+    <Include File="PopupDialog"/>
+    <MakeInstance Name="PopupDialog"/>
 </Context>

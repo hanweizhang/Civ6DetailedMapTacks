@@ -4,7 +4,7 @@
 
 print("Loading DMT_ModifierCalculator.lua");
 
-include( "DMT_ModifierRequirementChecker" );
+include( "dmt_modifierrequirementchecker" );
 -- =======================================================================
 -- Defining ModifierSubject that would be used within this file:
 -- The subject will contain these fields
@@ -51,6 +51,7 @@ local EFFECT_TYPE_TO_CHECK = {
     EFFECT_ADJUST_DISTRICT_YIELD_BASED_ON_ADJACENCY_BONUS = true,
     EFFECT_ADJUST_PLAYER_FEAUTE_REQUIRED_FOR_SPECIALTY_DISTRICTS = true, -- for Vietnam.
     EFFECT_ADJUST_PLAYER_SPECIALTY_DISTRICT_CANNOT_BE_BUILT_ADJACENT_TO_CITY = true, -- for Gaul.
+    EFFECT_ADJUST_VALID_FEATURES_DISTRICTS = true,
     -- EFFECT_ADJUST_PLOT_YIELD = true,
     -- EFFECT_ATTACH_MODIFIER = true,
     EFFECT_DISTRICT_ADJACENCY = true,
@@ -69,6 +70,7 @@ local m_GroupedModifiers = {}; -- Note: This assumes the same modifier will only
 local m_ModifiersToSkip = {}; -- Modifier ids that are added under EFFECT_ATTACH_MODIFIER
 
 local m_SpecialtyDistrictRequiredFeatures = {}; -- list of required features to put special districts on.
+local m_ValidDistrictFeatures = {}; -- list of valid features to put districts on.
 
 local m_NoSpecialtyDistrictNearCity = false; -- For Gaul.
 
@@ -88,6 +90,7 @@ function CacheEffectiveModifiers(playerID:number)
     -- Clear caches.
     m_GroupedModifiers = {};
     m_SpecialtyDistrictRequiredFeatures = {};
+    m_ValidDistrictFeatures = {};
 
     for _, modifierObjID in ipairs(GameEffects.GetModifiers()) do
         -- Check player ids.
@@ -169,6 +172,15 @@ function GroupAndCacheModifier(modifierSubject:table)
         if arguments then
             table.insert(m_SpecialtyDistrictRequiredFeatures, arguments.FeatureType);
         end
+    elseif effectType == "EFFECT_ADJUST_VALID_FEATURES_DISTRICTS" then
+        local arguments = modifierSubject.Arguments;
+        if arguments then
+            local districtType = arguments.DistrictType;
+            if districtType then
+                m_ValidDistrictFeatures[districtType] = m_ValidDistrictFeatures[districtType] or {};
+                m_ValidDistrictFeatures[districtType][arguments.FeatureType] = true;
+            end
+        end
     elseif effectType == "EFFECT_ADJUST_PLOT_YIELD" then
         for _, requirementId in ipairs(modifierSubject.Requirements) do
             -- Check if improvement type is from requirements
@@ -185,6 +197,11 @@ end
 
 -- Check if the given district can be placed on the given feature type.
 function CanDistrictPlaceOnFeatureByModifier(districtType:string, featureType:string)
+    -- Check valid district features first.
+    if m_ValidDistrictFeatures[districtType] and m_ValidDistrictFeatures[districtType][featureType] then
+        return true;
+    end
+    -- Check required features.
     local requireFeature = DoesDistrictRequireFeatureByModifier(districtType);
     if requireFeature then
         -- Now it has to be a special district.
@@ -441,7 +458,7 @@ end
 
 -- Get a modifier subject by modifier id.
 function GetModifierSubjectById(modifierId:string, playerID:number, ownerObjID:number)
-    if modifierId == nil then return nil; end
+    if modifierId == nil or GameInfo.Modifiers[modifierId] == nil then return nil; end
     -- Get modifier type's details.
     local modifierType = GameInfo.Modifiers[modifierId].ModifierType;
     local modifierTypeRow = GameInfo.DynamicModifiers[modifierType];

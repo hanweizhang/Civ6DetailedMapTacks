@@ -2,8 +2,7 @@
 -- Import base file
 -- =================================================================================
 local files = {
-    "MapPinPopup.lua",
-    "mappinpopup.lua", -- For linux.
+    "mappinpopup.lua",
 }
 
 for _, file in ipairs(files) do
