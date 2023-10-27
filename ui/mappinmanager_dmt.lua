@@ -2,20 +2,20 @@
 -- Import base file
 -- =================================================================================
 local files = {
+    "mappinmanager_cqui.lua",
     "mappinmanager.lua",
-}
+};
 for _, file in ipairs(files) do
     include(file)
     if Initialize then
         print("DMT_MapPinManager Loading " .. file .. " as base file");
-        break
+        break;
     end
 end
 include("PopupDialog");
+include("dmt_mappinsubjectmanager");
 
 local AUTO_DELETE_CONFIG_KEY = "DMT_AUTO_DELETE"; -- nil => NOT_SET, 0 => NO, 1 => YES.
-
-local MapPinSubjectManager = ExposedMembers.DMT.MapPinSubjectManager;
 
 local m_IsShiftDown = false;
 local m_RememberChoice = true;
@@ -30,13 +30,14 @@ local m_MapPinFlags = nil;
 -- =================================================================================
 -- Cache base functions
 -- =================================================================================
-BASE_MapPinFlag_Refresh = MapPinFlag.Refresh
+BASE_MapPinFlag_Refresh = MapPinFlag.Refresh;
+BASE_OnInputHandler = OnInputHandler;
 
 -- =================================================================================
 -- Overrides
 -- =================================================================================
 function MapPinFlag.Refresh(self)
-    BASE_MapPinFlag_Refresh(self)
+    BASE_MapPinFlag_Refresh(self);
     UpdateYields(self);
     UpdateCanPlace(self);
 end
@@ -45,7 +46,7 @@ function UpdateYields(pMapPinFlag)
     local pMapPin = pMapPinFlag:GetMapPin();
 
     if pMapPin ~= nil then
-        local mapPinSubject = MapPinSubjectManager.GetPin(pMapPin:GetPlayerID(), pMapPin:GetHexX(), pMapPin:GetHexY());
+        local mapPinSubject = GetMapPinSubject(pMapPin:GetPlayerID(), pMapPin:GetHexX(), pMapPin:GetHexY());
         if mapPinSubject then
             local yieldString = mapPinSubject.YieldString;
             local yieldToolTip = mapPinSubject.YieldToolTip;
@@ -70,7 +71,7 @@ function UpdateCanPlace(pMapPinFlag)
     local pMapPin = pMapPinFlag:GetMapPin();
 
     if pMapPin ~= nil then
-        local mapPinSubject = MapPinSubjectManager.GetPin(pMapPin:GetPlayerID(), pMapPin:GetHexX(), pMapPin:GetHexY());
+        local mapPinSubject = GetMapPinSubject(pMapPin:GetPlayerID(), pMapPin:GetHexX(), pMapPin:GetHexY());
         if mapPinSubject then
             local canPlace = mapPinSubject.CanPlace;
             local canPlaceToolTip = mapPinSubject.CanPlaceToolTip;
@@ -82,14 +83,6 @@ function UpdateCanPlace(pMapPinFlag)
 
     pMapPinFlag.m_Instance.CanPlaceIcon:SetHide(true);
     pMapPinFlag.m_Instance.CanPlaceIcon:SetToolTipString("");
-end
-
-function RefreshMapPinUI(playerID:number, pinID:number)
-    local flagInstance = GetMapPinFlag(playerID, pinID);
-    if flagInstance ~= nil then
-        UpdateYields(flagInstance);
-        UpdateCanPlace(flagInstance);
-    end
 end
 
 function OnMapPinFlagRightClick(playerID:number, pinID:number)
@@ -144,7 +137,7 @@ end
 
 function DeleteMapPinAtPlot(playerID, plotX, plotY)
     local playerCfg = PlayerConfigurations[playerID];
-    local mapPin = playerCfg:GetMapPin(plotX, plotY);
+    local mapPin = playerCfg and playerCfg:GetMapPin(plotX, plotY);
     if mapPin then
         -- Update map pin yields.
         LuaEvents.DMT_MapPinRemoved(mapPin);
@@ -156,7 +149,8 @@ function DeleteMapPinAtPlot(playerID, plotX, plotY)
 end
 
 function OnDeleteMapPinRequest(playerID, plotX, plotY)
-    local autoDeleteConfig = GameConfiguration.GetValue(AUTO_DELETE_CONFIG_KEY);
+    local playerCfg = PlayerConfigurations[playerID];
+    local autoDeleteConfig = playerCfg and playerCfg:GetValue(AUTO_DELETE_CONFIG_KEY);
     if autoDeleteConfig == 0 then
         -- Don't auto delete.
     elseif autoDeleteConfig == 1 then
@@ -169,7 +163,7 @@ function OnDeleteMapPinRequest(playerID, plotX, plotY)
         popupDialog:AddText(Locale.Lookup("LOC_DMT_AUTO_DELETE_MAP_TACK_HINT"));
         popupDialog:AddCheckBox(Locale.Lookup("LOC_REMEMBER_MY_CHOICE"), m_RememberChoice, OnAutoDeleteRememberChoice);
         popupDialog:AddButton(Locale.Lookup("LOC_YES"), function() OnAutoDeleteChooseYes(playerID, plotX, plotY); end);
-        popupDialog:AddButton(Locale.Lookup("LOC_NO"), OnAutoDeleteChooseNo);
+        popupDialog:AddButton(Locale.Lookup("LOC_NO"), function() OnAutoDeleteChooseNo(playerID, plotX, plotY); end);
         popupDialog:Open();
     end
 end
@@ -179,19 +173,26 @@ function OnAutoDeleteRememberChoice(checked)
 end
 
 function OnAutoDeleteChooseYes(playerID, plotX, plotY)
-    if m_RememberChoice then
-        GameConfiguration.SetValue(AUTO_DELETE_CONFIG_KEY, 1);
+    local playerCfg = PlayerConfigurations[playerID];
+    if m_RememberChoice and playerCfg then
+        playerCfg:SetValue(AUTO_DELETE_CONFIG_KEY, 1);
+        Network.BroadcastPlayerInfo();
     end
     DeleteMapPinAtPlot(playerID, plotX, plotY);
 end
 
-function OnAutoDeleteChooseNo()
-    if m_RememberChoice then
-        GameConfiguration.SetValue(AUTO_DELETE_CONFIG_KEY, 0);
+function OnAutoDeleteChooseNo(playerID, plotX, plotY)
+    local playerCfg = PlayerConfigurations[playerID];
+    if m_RememberChoice and playerCfg then
+        playerCfg:SetValue(AUTO_DELETE_CONFIG_KEY, 0);
+        Network.BroadcastPlayerInfo();
     end
 end
 
 function OnInputHandler(pInputStruct:table)
+    if BASE_OnInputHandler then
+        BASE_OnInputHandler(pInputStruct);
+    end
     -- **Inspired by CQUI. Credits to infixo.**
     if pInputStruct:GetKey() == Keys.VK_SHIFT then
         m_IsShiftDown = pInputStruct:GetMessageType() == KeyEvents.KeyDown;
@@ -218,7 +219,6 @@ end
 function DMT_Initialize()
     ContextPtr:SetInputHandler(OnInputHandler, true);
 
-    LuaEvents.DMT_RefreshMapPinUI.Add(RefreshMapPinUI);
     LuaEvents.DMT_DeleteMapPinRequest.Add(OnDeleteMapPinRequest);
     Events.InterfaceModeChanged.Add(OnInterfaceModeChanged);
     Events.InputActionTriggered.Add(OnInputActionTriggered);
