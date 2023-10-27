@@ -26,10 +26,6 @@
       </Properties>
       <File>ui/dmt_yieldcalculator.xml</File>
     </AddUserInterfaces>
-    <AddGameplayScripts id="mappinsubjectmanager">
-      <Properties><LoadOrder>12345</LoadOrder></Properties> <!-- Higher than Map Tacks mod's 12000. -->
-      <File>gameplay/mappinsubjectmanager.lua</File>
-    </AddGameplayScripts>
     <ReplaceUIScript id="mappinmanager">
       <Properties>
         <LoadOrder>12345</LoadOrder> <!-- Higher than Map Tacks mod's 12000. -->
@@ -53,8 +49,10 @@
     <!-- Importing our files so that other mods can include it and apply additional logic. -->
     <ImportFiles id="dmt_files">
       <Properties><LoadOrder>12345</LoadOrder></Properties> <!-- Higher than Map Tacks mod's 12000. -->
+      <File>ui/dmt_mappinsubjectmanager.lua</File>
       <File>ui/dmt_modifiercalculator.lua</File>
       <File>ui/dmt_modifierrequirementchecker.lua</File>
+      <File>ui/dmt_serialize.lua</File>
       <File>ui/dmt_yieldcalculator.lua</File>
       <File>ui/dmt_yieldcalculator.xml</File>
       <File>ui/mappinmanager_dmt.lua</File>
@@ -71,9 +69,10 @@
     <File>text/dmt_translations_text.xml</File>
     <!-- Game files -->
     <File>config/dmt_config.xml</File>
-    <File>gameplay/mappinsubjectmanager.lua</File>
+    <File>ui/dmt_mappinsubjectmanager.lua</File>
     <File>ui/dmt_modifiercalculator.lua</File>
     <File>ui/dmt_modifierrequirementchecker.lua</File>
+    <File>ui/dmt_serialize.lua</File>
     <File>ui/dmt_yieldcalculator.lua</File>
     <File>ui/dmt_yieldcalculator.xml</File>
     <File>ui/mappinmanager_dmt.lua</File>

@@ -6,6 +6,7 @@ print("Loading DMT_YieldCalculator.lua");
 
 include( "civ6common" );
 include( "dmt_modifiercalculator" );
+include( "dmt_mappinsubjectmanager" );
 
 -- =======================================================================
 -- Defining MapPinSubject that would be used within this file:
@@ -23,7 +24,6 @@ include( "dmt_modifiercalculator" );
 --
 -- =======================================================================
 
-local MapPinSubjectManager = ExposedMembers.DMT.MapPinSubjectManager;
 -- =======================================================================
 -- Constants
 -- =======================================================================
@@ -81,19 +81,20 @@ function UpdatePinYields(playerID:number, pinsToUpdate:table)
             pin.CanPlace = canPlace;
             pin.CanPlaceToolTip = canPlaceToolTip;
             -- Update the pin in MapPinSubjectManager.
-            MapPinSubjectManager.UpdatePin(playerID, pin.X, pin.Y, pin);
+            UpdateMapPinSubject(playerID, pin.X, pin.Y, pin);
         else
-            MapPinSubjectManager.ClearPin(playerID, pin.X, pin.Y);
+            ClearMapPinSubject(playerID, pin.X, pin.Y);
         end
-        -- Update UI.
-        LuaEvents.DMT_RefreshMapPinUI(playerID, pin.Id);
     end
+
+    -- Update UI for all clients.
+    BroadcastMapPinSubjects();
 end
 
 -- Update adjacent pins and the pin at the given location if there's any.
 function UpdateSelfAndAdjacentPins(playerID:number, posX:number, posY:number)
     if playerID ~= -1 and playerID == Game.GetLocalPlayer() then
-        local pinsToUpdate = MapPinSubjectManager.GetSelfAndAdjacentPins(playerID, posX, posY);
+        local pinsToUpdate = GetSelfAndAdjacentMapPinSubjects(playerID, posX, posY);
         UpdatePinYields(playerID, pinsToUpdate);
     end
 end
@@ -494,7 +495,7 @@ end
 function IsAdjacentToLandPlot(playerID, x, y)
     -- Cannot use plot:IsAdjacentToLand() since it'll include unrevealed plots.
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot and IsPlotRevealedToPlayer(plot, playerID) and not plot:IsWater() then
             return true;
         end
@@ -506,7 +507,7 @@ end
 function IsAdjacentToCoast(playerID, x, y)
     -- Cannot use plot:IsCoastalLand() since it'll include unrevealed plots.
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot and IsPlotRevealedToPlayer(plot, playerID) and plot:IsWater() and not plot:IsLake() then
             return true;
         end
@@ -517,7 +518,7 @@ end
 -- Check if the position is adjacent to mountain.
 function IsAdjacentToMountain(playerID, x, y)
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot and IsPlotRevealedToPlayer(plot, playerID) and plot:IsMountain() then
             return true;
         end
@@ -540,9 +541,9 @@ end
 -- Check if the position is adjacent to a certain resource.
 function IsAdjacentToResource(playerID, x, y, targetResource)
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot then
-            local adjPinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+            local adjPinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
             local features = GetRealizedPlotFeatures(playerID, plot, adjPinSubject);
             if features[AdjacencyBonusTypes.ADJACENCY_RESOURCE] == targetResource then
                 return true;
@@ -555,9 +556,9 @@ end
 -- Check if the position is adjacent to a certain improvement.
 function IsAdjacentToImprovement(playerID, x, y, targetImprovement)
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot then
-            local adjPinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+            local adjPinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
             local features = GetRealizedPlotFeatures(playerID, plot, adjPinSubject);
             if features[AdjacencyBonusTypes.ADJACENCY_IMPROVEMENT] == targetImprovement then
                 return true;
@@ -570,7 +571,7 @@ end
 -- Check if the position is adjacent to player capital.
 function IsAdjacentToCapital(playerID, x, y)
     local adjPlots = Map.GetAdjacentPlots(x, y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot then
             local city = Cities.GetCityInPlot(plot:GetX(), plot:GetY());
             if city and city:IsCapital() and city:GetOwner() == playerID then return true; end
@@ -591,7 +592,7 @@ function IsAdjacentToDistrict(playerID, x, y, targetDistrict)
     for direction = 0, DirectionTypes.NUM_DIRECTION_TYPES - 1, 1 do
         local plot = Map.GetAdjacentPlot(x, y, direction);
         if plot then
-            local adjPinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+            local adjPinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
             local features = GetRealizedPlotFeatures(playerID, plot, adjPinSubject);
             local districtType = features[AdjacencyBonusTypes.ADJACENCY_DISTRICT];
             -- Replace UDs with standard districts.
@@ -614,7 +615,7 @@ function IsValidCityCenterPosition(playerID, x, y)
     local plotsWithin3Tiles = GetPlotsWithinXTiles(x, y, 3);
     for _, plot in ipairs(plotsWithin3Tiles) do
         if plot and not (plot:GetX() == x and plot:GetY() == y) then -- Don't need to do visibility check since player can see if there's a city center already.
-            local pinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+            local pinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
             local features = GetRealizedPlotFeatures(playerID, plot, pinSubject);
             if IsCityCenter(features[AdjacencyBonusTypes.ADJACENCY_DISTRICT]) then
                 isValid = false;
@@ -622,8 +623,7 @@ function IsValidCityCenterPosition(playerID, x, y)
                 if pinSubject and IsCityCenter(pinSubject.Key) then
                     pinSubject.CanPlace = false;
                     pinSubject.CanPlaceToolTip = Locale.Lookup("LOC_HUD_UNIT_PANEL_TOOLTIP_TOO_CLOSE_TO_CITY");
-                    MapPinSubjectManager.UpdatePin(playerID, pinSubject.X, pinSubject.Y, pinSubject);
-                    LuaEvents.DMT_RefreshMapPinUI(playerID, pinSubject.Id);
+                    UpdateMapPinSubject(playerID, pinSubject.X, pinSubject.Y, pinSubject);
                 end
             end
         end
@@ -693,8 +693,8 @@ function IsValidDamPosition(playerID, x, y)
         end
         -- Adjacent floodplain check.
         local adjPlots = Map.GetAdjacentPlots(x, y);
-        for i, plot in ipairs(adjPlots) do
-            if RiverManager.CanBeFlooded(plot) then
+        for i, plot in pairs(adjPlots) do
+            if plot and RiverManager.CanBeFlooded(plot) then
                 adjacentFloodplainCount = adjacentFloodplainCount + 1;
             end
         end
@@ -704,7 +704,7 @@ function IsValidDamPosition(playerID, x, y)
             if plotToCheck:GetIndex() ~= plotIndex then
                 local plot = Map.GetPlotByIndex(plotIndex);
                 if plot and IsPlotRevealedToPlayer(plot, playerID) and riverName == RiverManager.GetRiverName(plot) then
-                    local pinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+                    local pinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
                     local features = GetRealizedPlotFeatures(playerID, plot, pinSubject);
                     if features[AdjacencyBonusTypes.ADJACENCY_DISTRICT] == "DISTRICT_DAM" then
                         isValid = false;
@@ -712,8 +712,7 @@ function IsValidDamPosition(playerID, x, y)
                         if pinSubject and pinSubject.Key == "DISTRICT_DAM" then
                             pinSubject.CanPlace = false;
                             pinSubject.CanPlaceToolTip = Locale.Lookup("LOC_DMT_INVALID_DAM_PLACEMENT_REASON");
-                            MapPinSubjectManager.UpdatePin(playerID, pinSubject.X, pinSubject.Y, pinSubject);
-                            LuaEvents.DMT_RefreshMapPinUI(playerID, pinSubject.Id);
+                            UpdateMapPinSubject(playerID, pinSubject.X, pinSubject.Y, pinSubject);
                         end
                     end
                 end
@@ -1009,9 +1008,9 @@ function GetBonusYields(playerID:number, pinSubject:table)
 
     local allFeatures = {};
     local adjPlots = Map.GetAdjacentPlots(pinSubject.X, pinSubject.Y);
-    for i, plot in ipairs(adjPlots) do
+    for i, plot in pairs(adjPlots) do
         if plot ~= nil then
-            local adjPinSubject = MapPinSubjectManager.GetPin(playerID, plot:GetX(), plot:GetY());
+            local adjPinSubject = GetMapPinSubject(playerID, plot:GetX(), plot:GetY());
 
             local features = GetRealizedPlotFeatures(playerID, plot, adjPinSubject);
             for adjType, adjTarget in pairs(features) do
@@ -1411,7 +1410,7 @@ function OnMapPinAdded(mapPinCfg:table)
     -- In this way, the surrounding pins will include the newly added pin when they are updating.
     table.insert(pinsToUpdate, pin);
     -- Add adjacent pins to update as well.
-    local adjPins = MapPinSubjectManager.GetAdjacentPins(playerID, pin.X, pin.Y);
+    local adjPins = GetAdjacentMapPinSubjects(playerID, pin.X, pin.Y);
     for _, adjPin in ipairs(adjPins) do
         table.insert(pinsToUpdate, adjPin);
     end
@@ -1430,16 +1429,16 @@ function OnMapPinRemoved(mapPinCfg:table)
         return;
     end
     -- Clear the removed pin in our cache before updating adjacent pins.
-    MapPinSubjectManager.ClearPin(playerID, pin.X, pin.Y);
+    ClearMapPinSubject(playerID, pin.X, pin.Y);
 
     local pinsToUpdate = {};
     -- If a city center pin is removed, update all pins within 3 tiles
     if IsCityCenter(pin.Key) then
         local cityPlots = GetPlotsWithinXTiles(pin.X, pin.Y, 3);
-        pinsToUpdate = MapPinSubjectManager.GetAllPinsOnPlots(playerID, cityPlots);
+        pinsToUpdate = GetAllMapPinSubjectsOnPlots(playerID, cityPlots);
     else
         -- Otherwise update adjacent pins only.
-        pinsToUpdate = MapPinSubjectManager.GetAdjacentPins(playerID, pin.X, pin.Y);
+        pinsToUpdate = GetAdjacentMapPinSubjects(playerID, pin.X, pin.Y);
     end
     UpdatePinYields(playerID, pinsToUpdate);
 end
@@ -1456,7 +1455,7 @@ function OnLocalPlayerTurnBegin(isFirstLoad)
 
     m_HiddenPlotsToCheck = {};
     -- Update all pins.
-    local allPins = MapPinSubjectManager.GetAllPins(playerID);
+    local allPins = GetAllMapPinSubjects(playerID);
     if isFirstLoad and #allPins == 0 then
         -- If there's no pin for the first load, check if there's existing map pins
         -- (for compatible with games started before including this mod).
@@ -1465,7 +1464,7 @@ function OnLocalPlayerTurnBegin(isFirstLoad)
         for _, mapPinCfg in pairs(playerPins) do
             local pin = CreateMapPinSubject(mapPinCfg);
             if pin.Type ~= MAP_PIN_TYPES.UNKNOWN then
-                MapPinSubjectManager.UpdatePin(playerID, pin.X, pin.Y, pin); -- Create the pin.
+                UpdateMapPinSubject(playerID, pin.X, pin.Y, pin); -- Create the pin.
                 table.insert(allPins, pin); -- Add to update candidate.
             end
         end
@@ -1476,7 +1475,7 @@ end
 function OnBuildingAdded(plotX, plotY, buildingIndex, playerID)
     -- Remove the wonder pin if the added wonder matches the pin.
     if playerID ~= -1 and playerID == Game.GetLocalPlayer() then
-        local pin = MapPinSubjectManager.GetPin(playerID, plotX, plotY);
+        local pin = GetMapPinSubject(playerID, plotX, plotY);
         if pin ~= nil and pin.Key == GameInfo.Buildings[buildingIndex].BuildingType then
             LuaEvents.DMT_DeleteMapPinRequest(playerID, plotX, plotY);
         end
@@ -1487,7 +1486,7 @@ function OnDistrictAdded(playerID, districtID, cityID, districtX, districtY, dis
     OnDistrictChanged(playerID, districtID, cityID, districtX, districtY, districtIndex);
     -- Remove the district pin if the added district matches the pin.
     if playerID ~= -1 and playerID == Game.GetLocalPlayer() then
-        local pin = MapPinSubjectManager.GetPin(playerID, districtX, districtY);
+        local pin = GetMapPinSubject(playerID, districtX, districtY);
         if pin ~= nil and pin.Key == GameInfo.Districts[districtIndex].DistrictType then
             LuaEvents.DMT_DeleteMapPinRequest(playerID, districtX, districtY);
         end
@@ -1500,9 +1499,9 @@ function OnDistrictChanged(playerID, districtID, cityID, districtX, districtY, d
         -- If a city center is changed, update all pins within 3 tiles.
         if districtIndex ~= -1 and GameInfo.Districts[districtIndex].CityCenter then
             local cityPlots = GetPlotsWithinXTiles(districtX, districtY, 3);
-            pinsToUpdate = MapPinSubjectManager.GetAllPinsOnPlots(playerID, cityPlots);
+            pinsToUpdate = GetAllMapPinSubjectsOnPlots(playerID, cityPlots);
         else
-            pinsToUpdate = MapPinSubjectManager.GetSelfAndAdjacentPins(playerID, districtX, districtY);
+            pinsToUpdate = GetSelfAndAdjacentMapPinSubjects(playerID, districtX, districtY);
         end
         UpdatePinYields(playerID, pinsToUpdate);
     end
@@ -1516,7 +1515,7 @@ function OnImprovementAdded(posX, posY, improvementIndex, playerID)
     OnImprovementChanged(posX, posY, improvementIndex, playerID);
     -- Remove the improvement pin if the added improvement matches the pin.
     if playerID ~= -1 and playerID == Game.GetLocalPlayer() then
-        local pin = MapPinSubjectManager.GetPin(playerID, posX, posY);
+        local pin = GetMapPinSubject(playerID, posX, posY);
         if pin ~= nil and pin.Key == GameInfo.Improvements[improvementIndex].ImprovementType then
             LuaEvents.DMT_DeleteMapPinRequest(playerID, posX, posY);
         end
