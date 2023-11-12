@@ -2,9 +2,10 @@
 <Mod id="4ecfcc62-5471-4435-b295-590df213e8d8" version="1">
   <Properties>
     <Name>Detailed Map Tacks</Name>
-    <Authors>wltk, DeepLogic</Authors>
+    <Authors>wltk, DeepLogic, JamieNyanchi</Authors>
     <Teaser>Show yields and adjacency bonuses for your map tacks.</Teaser>
     <Description>Are you tired of calculating adjacency bonuses for your districts? This mod can help you plan the placement of your districts by calculating the potential yields and adjacency bonuses on your behalf. Simply add map tacks on your map and the yields from them will show up automatically. Enjoy planning!</Description>
+    <SpecialThanks>Thanks JamieNyanchi for adding multiplayer support.</SpecialThanks>
     <AffectsSavedGames>0</AffectsSavedGames>
     <CompatibleVersions>1.2,2.0</CompatibleVersions>
   </Properties>
